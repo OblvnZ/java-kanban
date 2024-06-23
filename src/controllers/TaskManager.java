@@ -3,6 +3,7 @@ package controllers;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
+
 import model.*;
 
 public class TaskManager {
@@ -53,14 +54,20 @@ public class TaskManager {
 
     public void addTask(Task task) {
         if (task.getClass() == Task.class) tasks.put(task.getUuid(), task);
-        if (task.getClass() == Subtask.class) subtasks.put(task.getUuid(),(Subtask) task);
-        if (task.getClass() == Epic.class) epics.put(task.getUuid(),(Epic) task);
-        if (task.getClass() == Subtask.class) updateTaskStatus(((Subtask) task).getEpic());
+        if (task.getClass() == Subtask.class) {
+            updateTaskStatus(((Subtask) task).getEpic());
+            subtasks.put(task.getUuid(), (Subtask) task);
+        }
+        if (task.getClass() == Epic.class) epics.put(task.getUuid(), (Epic) task);
     }
 
     public void updateTask(Task task) {
-        tasks.put(task.getUuid(), task);
-        if (task.getClass() == Subtask.class) updateTaskStatus(((Subtask) task).getEpic());
+        if (task.getClass() == Task.class) tasks.put(task.getUuid(), task);
+        if (task.getClass() == Epic.class) epics.put(task.getUuid(), (Epic) task);
+        if (task.getClass() == Subtask.class) {
+            subtasks.put(task.getUuid(), (Subtask) task);
+            updateTaskStatus(((Subtask) task).getEpic());
+        }
     }
 
     public void removeTaskById(UUID uuid) {
@@ -71,7 +78,9 @@ public class TaskManager {
             }
             epics.remove(uuid);
         } else if (getTaskById(uuid).getClass() == Subtask.class) {
+            Subtask subtaskToRemove = (Subtask) getTaskById(uuid);
             subtasks.remove(uuid);
+            updateTaskStatus(subtaskToRemove.getEpic());
         } else if (getTaskById(uuid).getClass() == Task.class) {
             tasks.remove(uuid);
         }
