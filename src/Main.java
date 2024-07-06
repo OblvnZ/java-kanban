@@ -1,10 +1,15 @@
 import model.*;
-import controllers.TaskManager;
+import controllers.InMemoryTaskManager;
+
+
+import java.lang.reflect.InvocationTargetException;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         System.out.println("Поехали!");
-        TaskManager manager = new TaskManager();
+        Managers qwe = new Managers();
+        InMemoryTaskManager manager = (InMemoryTaskManager) qwe.getDefault();
+
         Task task1 = new Task("Сходить за покупками", "Купить необходимые на лето вещи");
         Task task2 = new Task("Собрать шкаф", "Собрать шкаф опираясь на инструкцию");
         Epic epic1 = new Epic("Переезд", "Переехать в другой город");
@@ -19,20 +24,11 @@ public class Main {
         manager.addTask(subtask2);
         manager.addTask(epic2);
         manager.addTask(subtask3);
-        System.out.println(manager.getTasks());
-        System.out.println(manager.getEpics());
-        System.out.println(manager.getSubtasks());
-        manager.updateTaskStatus(subtask3, TaskStatus.IN_PROGRESS);
-        manager.updateTaskStatus(task1, TaskStatus.DONE);
-        manager.updateTaskStatus(subtask2, TaskStatus.DONE);
-        System.out.println(manager.getTasks());
-        System.out.println(manager.getEpics());
-        System.out.println(manager.getSubtasks());
-        manager.removeTaskById(epic2.getUuid());
-        manager.removeTaskById(task1.getUuid());
-        System.out.println(manager.getTasks());
-        System.out.println(manager.getEpics());
-        System.out.println(manager.getSubtasks());
+        manager.getTaskById(epic1.getUuid());
+        manager.getTaskById(task1.getUuid());
+        manager.getTaskById(subtask1.getUuid());
+        manager.getTaskById(task2.getUuid());
+        manager.getTaskById(epic2.getUuid());
     }
 }
 

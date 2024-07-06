@@ -1,5 +1,6 @@
 package model;
 
+import java.util.Objects;
 import java.util.UUID;
 
 public class Task {
@@ -11,11 +12,17 @@ public class Task {
 
 
     public Task(String name,  String description) {
+        this(name, description, UUID.randomUUID(), TaskStatus.NEW);
+    }
+
+    public Task(String name,  String description, UUID uuid, TaskStatus status) {
         this.name = name;
         this.description = description;
-        this.uuid = UUID.randomUUID();
-        this.status = TaskStatus.NEW;
+        this.uuid = uuid;
+        this.status = status;
     }
+
+
 
     public UUID getUuid() {
         return uuid;
@@ -33,6 +40,10 @@ public class Task {
         return name;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     @Override
     public String toString() {
         return getClass() + "{" +
@@ -40,5 +51,18 @@ public class Task {
                 ", description='" + description + '\'' +
                 ", status=" + status +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Task task = (Task) o;
+        return Objects.equals(uuid, task.uuid);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(uuid);
     }
 }
