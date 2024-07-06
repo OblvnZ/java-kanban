@@ -1,5 +1,5 @@
-package model;
-
+import model.Epic;
+import model.TaskStatus;
 import org.junit.jupiter.api.Test;
 
 import java.util.UUID;

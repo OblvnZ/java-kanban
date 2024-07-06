@@ -1,7 +1,5 @@
-package model;
-
-import controllers.InMemoryTaskManager;
-import controllers.TaskManager;
+import model.Task;
+import model.TaskStatus;
 import org.junit.jupiter.api.Test;
 
 import java.util.UUID;
