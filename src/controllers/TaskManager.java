@@ -11,31 +11,32 @@ import java.util.UUID;
 
 public interface TaskManager {
 
-    public ArrayList<Task> getTasks();
+    ArrayList<Task> getTasks();
+    ArrayList<Subtask> getSubtasks();
+    ArrayList<Epic> getEpics();
+    final List<Task> tasksHistory = new ArrayList<>();
 
-    public ArrayList<Subtask> getSubtasks();
+    void removeTasks();
 
-    public ArrayList<Epic> getEpics();
+    void removeSubtasks();
 
-    public void removeTasks();
+    void removeEpics();
 
-    public void removeSubtasks();
+    Task getTaskById(UUID uuid);
 
-    public void removeEpics();
+    void addTask(Task task);
 
-    public Task getTaskById(UUID uuid);
+    void updateTask(Task task);
 
-    public void addTask(Task task);
+    void removeTaskById(UUID uuid);
 
-    public void updateTask(Task task);
+    ArrayList<Subtask> getSubtasksByEpic(Epic epic);
 
-    public void removeTaskById(UUID uuid);
+    void updateTaskStatus(Subtask subtask, TaskStatus status);
 
-    public ArrayList<Subtask> getSubtasksByEpic(Epic epic);
+    void updateTaskStatus(Epic epic);
 
-    public void updateTaskStatus(Subtask subtask, TaskStatus status);
+    void updateTaskStatus(Task task, TaskStatus status);
 
-    public void updateTaskStatus(Epic epic);
-
-    public void updateTaskStatus(Task task, TaskStatus status);
+    List<Task> getTasksHistory();
 }

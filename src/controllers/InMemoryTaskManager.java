@@ -9,7 +9,7 @@ public class InMemoryTaskManager implements TaskManager {
     private final HashMap<UUID, Task> tasks = new HashMap<>();
     private final HashMap<UUID, Epic> epics = new HashMap<>();
     private final HashMap<UUID, Subtask> subtasks = new HashMap<>();
-    InMemoryHistoryManager historyManager = new InMemoryHistoryManager();
+    private InMemoryHistoryManager historyManager = new InMemoryHistoryManager();
 
     @Override
     public ArrayList<Task> getTasks() {
@@ -49,15 +49,12 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public Task getTaskById(UUID uuid) {
         if (tasks.containsKey(uuid)) {
-            historyManager.updateTasksHistory();
             historyManager.add(tasks.get(uuid));
             return tasks.get(uuid);
         } else if (epics.containsKey(uuid)) {
-            historyManager.updateTasksHistory();
             historyManager.add(epics.get(uuid));
             return epics.get(uuid);
         } else if (subtasks.containsKey(uuid)) {
-            historyManager.updateTasksHistory();
             historyManager.add(subtasks.get(uuid));
             return subtasks.get(uuid);
         }
@@ -129,5 +126,10 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public void updateTaskStatus(Task task, TaskStatus status) {
         task.setStatus(status);
+    }
+
+    @Override
+    public List<Task> getTasksHistory() {
+        return tasksHistory;
     }
 }
