@@ -128,8 +128,7 @@ public class InMemoryTaskManager implements TaskManager {
         task.setStatus(status);
     }
 
-    @Override
     public List<Task> getTasksHistory() {
-        return tasksHistory;
+        return historyManager.getTasksHistory();
     }
 }

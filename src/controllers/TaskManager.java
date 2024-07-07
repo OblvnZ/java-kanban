@@ -14,7 +14,6 @@ public interface TaskManager {
     ArrayList<Task> getTasks();
     ArrayList<Subtask> getSubtasks();
     ArrayList<Epic> getEpics();
-    final List<Task> tasksHistory = new ArrayList<>();
 
     void removeTasks();
 
@@ -38,5 +37,4 @@ public interface TaskManager {
 
     void updateTaskStatus(Task task, TaskStatus status);
 
-    List<Task> getTasksHistory();
 }

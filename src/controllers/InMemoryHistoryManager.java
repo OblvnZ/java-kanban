@@ -15,4 +15,9 @@ public class InMemoryHistoryManager implements HistoryManager {
         }
         tasksHistory.add(task);
     }
+
+    @Override
+    public List<Task> getTasksHistory() {
+        return tasksHistory;
+    }
 }
